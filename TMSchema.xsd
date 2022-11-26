@@ -1,0 +1,1249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Total Miner XML Mod Schema by Dave The Monitor-->
+<!--Please report any issues. The easiest way is by messaging me directly on Discord: Dave The Monitor#6212-->
+
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified">
+	<xs:element name="ArrayOfModActorAIDataXML">
+		<xs:annotation>
+			<xs:documentation>Contains one or more ModActorAIDataXML, which define NPCs' behavior properties. Can be used for either custom or vanilla NPCs.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ModActorAIDataXML" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Defines NPCs' behavior properties.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="ActorAIType" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The ID of this AI type. This is used in ActorTypeData.xml to determine certain behavior properties of the NPC.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="StrikeDelay" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The time, in seconds, it takes this NPC to attack.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="StrikeRange" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The range, in blocks, this NPC can reach when attacking.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="RegardRange" type="xs:int" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The range, in blocks, this NPC will acknowledge other NPCs and players (eg. how far it can see). This is used as the default value for behavior nodes such as IsVisible</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="HearingRange" type="xs:int" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The range, in blocks, this NPC can hear other NPCs and players.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="AttackRange" type="xs:int" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Unknown</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="InactiveRange" type="xs:int" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Unknown</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ArrayOfModActorAudioDataXML">
+		<xs:annotation>
+			<xs:documentation>Contains one or more ModActorAudioDataXML, which define NPCs' sounds.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ModActorAudioDataXML" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Defines NPCs' sounds.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="ActorType" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The ID of this NPC.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="AudioPain" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The sound this NPC makes when attacked.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="AudioWarning" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The sound this NPC makes as a warning. Currently only used when milking a cow.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="AudioStrike" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>Unknown</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="AudioDeath" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The sound this NPC makes when killed.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ArrayOfModActorLevelDataXML">
+		<xs:annotation>
+			<xs:documentation>Contains one or more ModActorLevelDataXML, which define NPCs' default levels. These stats are used when the NPC is spawned naturally and as the default for NPCSpawn blocks. These can be overridden if the NPC is not spawned naturally (eg. a customized NPCSpawn block or Script).</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ModActorLevelDataXML" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Defines NPCs' default levels. These stats are used when the NPC is spawned naturally and as the default for NPCSpawn blocks. These can be overridden if the NPC is not spawned naturally (eg. a customized NPCSpawn block or Script). Can be used to either give custom stats to your NPCs, or replace default vanilla NPC stats.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="ActorLevelType" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The ID of this level type. This is used in ActorTypeData.xml to determine the base stats of the NPC. The stats can be overriden if the NPC is not spawned naturally (eg. a customized NPCSpawn block or Script)</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="HealthLevel" type="xs:int" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The default Health level of this level type. NPCs have 10 health by default, and each Health level increases the total health of the NPC by 3, until level 100, at which point it only increases by 1.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="AttackLevel" type="xs:int" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The default Attack level of this level type. Attack increases how often the NPC can land hits with melee weapons or unarmed strike. Low Attack often results in dealing 0 damage (dark blue damage numbers) against targets with armor when using melee weapons or unarmed swing.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="StrengthLevel" type="xs:int" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The default Strength level of this level type. Strength increases damage dealt to targets.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="DefenceLevel" type="xs:int" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The default Defence level of this level type. Increases the NPC's chance of taking 0 damage from attacks. Increasing defence is effectively the same as decreasing the target's Attack or Ranged level.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="RangedLevel" type="xs:int" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The default Ranged level of this level type. Ranged increases how often the NPC can land hits with ranged weapons. Low Ranged often results in dealing 0 damage (dark blue damage numbers) against targets with armor when using ranged weapons.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ArrayOfModActorPhysicsDataXML">
+		<xs:annotation>
+			<xs:documentation>Contains one or more ModActorPhysicsDataXML, which define NPCs' movement properties.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ModActorPhysicsDataXML" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Defines NPCs' movement properties of NPCs.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="ActorPhysicsType" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The ID of this physics type. This is used in ActorTypeData.xml to determine movement properties of the NPC.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Acceleration" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Despite the name, this is the actual movement speed of this NPC. Usually should always be the same as MoveSpeed.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="MoveSpeed" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The default maximum velocity of this NPC. Players use 0.09.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="JumpSpeed" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The upward velocity this NPC gains when jumping. Most NPCs use 0.155.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="RotateSpeed" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The speed at which this NPC can turn. Most NPCs use 0.1.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ArrayOfModActorTypeDataXML">
+		<xs:annotation>
+			<xs:documentation>Contains one or more ModActorTypeDataXML, which define NPCs' data and properties. This is required to create custom NPCs.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ModActorTypeDataXML" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Defines NPCs' data and properties. This is required to create custom NPCs.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="ActorType" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The ID of this NPC.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="LevelType" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The LevelType ID of this NPC, as defined in ActorLevelData.xml.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="PhysicsType" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The PhysicsType ID of this NPC, as defined in ActorPhysicsData.xml.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="AIType" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The AItype ID of this NPC, as defined in ActorAIData.xml.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="ComName" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The name of the component this NPC uses for its model. The component should be facing North. The component file should be present in the mod folder, with the same name as specified here with the file extension ".com". For example, if "Dragon" is specified here, the file name should be "Dragon.com"</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="ComNameWalk" type="stringArray" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>A list of the component names this NPC uses to walk. The speed the animation is played is based on how quickly this NPC is moving. The first frame specified is the animation for standing still.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="ModelHeight" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The height of this NPC's visible model. This does not affect the hitbox. The width of the model is determined by the height.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="ModelYRotation" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The Y (horizontal) rotation of the model, in radians.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="IsValid" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>If false, this NPC cannot be spawned.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="IsFemale" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>If true, this NPC should be considered female. This has no effect on gameplay.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="IsPassive" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>If true, this NPC should be considered passive. Passive NPCs spawn during the day if passive NPC spawns are enabled in the world.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="IsImmuneToFire" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>If true, this NPC cannot take damage from lava or fire.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="CanBreatheUnderwater" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>If true, this NPC can breathe underwater.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="ShowHitboxes" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>If true, this NPC's hitbox and critical hitbox will be visible. The standard hitbox determines collision and normal hits, and the critical hitbox is what must be hit to land a critical hit. Currently, hitboxes cannot be changed with XML.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="HasNameplate" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>If true, this NPC's combat level and health will be visible above it.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="HandMaxHit" type="xs:int" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The maximum damage this NPC can deal without any weapons.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="NaturalSpawnFreq" type="xs:int" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The time, in seconds, between natural spawn attempts for this NPC.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="NaturalBehaviour" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The default behavior of this NPC when it spawns naturally, or as the default option for NPCSpawn blocks.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="LootTable" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>A list of items this NPC can drop. The NPC will still drop random items, but any items specified in this loot table will also be dropped.</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="LootItem" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:all>
+													<xs:element name="Item" type="xs:string">
+														<xs:annotation>
+															<xs:documentation>The item ID to be dropped.</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Count1" type="xs:int">
+														<xs:annotation>
+															<xs:documentation>The minimum amount of this item to drop.</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Count2" type="xs:int">
+														<xs:annotation>
+															<xs:documentation>The maximum amount of this item to drop.</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Percent" type="xs:int">
+														<xs:annotation>
+															<xs:documentation>The percent chance, from 0-100, of this item to drop.</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Damage">
+														<xs:annotation>
+															<xs:documentation>The type of damage required for this item to drop. Use "Unknown" for this item to drop from any damage.</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:enumeration value="Unknown" />
+																<xs:enumeration value="Combat" />
+																<xs:enumeration value="Burning" />
+																<xs:enumeration value="Drowning" />
+																<xs:enumeration value="ItemUse" />
+																<xs:enumeration value="Blast" />
+																<xs:enumeration value="BlockFallingOnHead" />
+																<xs:enumeration value="BlockCollision" />
+																<xs:enumeration value="Hail" />
+																<xs:enumeration value="ShieldDeflect" />
+																<xs:enumeration value="Effect" />
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+												</xs:all>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ArrayOfModBlueprintDataXML">
+		<xs:annotation>
+			<xs:documentation>Contains one or more ModBlueprintDataXML, which define recipes and blueprints for items. Without a blueprint, custom items will not be craftable.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ModBlueprintDataXML" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Defines a blueprint's properties.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="ItemID" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The ID of the item this blueprint is for.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="CraftType" minOccurs="0" >
+								<xs:annotation>
+									<xs:documentation>The way this blueprint is crafted.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="Crafting" />
+										<xs:enumeration value="Furnace" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="IsValid" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>If false, this blueprint cannot be used to craft the item.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="IsDefault" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>If true, this item will be automatically unlocked in Dig Deep. Otherwise, the blueprint will have to be found in the world first.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Depth" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The depth range that this item is found at in Dig Deep, where 1 = the bottom of the world, and 0 = the top of the world. X = max, Y = min</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:all>
+										<xs:element name="X" type="xs:float">
+											<xs:annotation>
+												<xs:documentation>The maximum depth that this blueprint can be found at in Dig Deep. 1 = the bottom of the world, 0 = the top of the world.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="Y" type="xs:float">
+											<xs:annotation>
+												<xs:documentation>The minimum depth that this blueprint can be found at in Dig Deep. 1 = the bottom of the world, 0 = the top of the world.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:all>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Result" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The item result from crafting this blueprint.</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:all>
+										<xs:element name="ItemID" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>The ID of this item.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="Count" type="xs:int">
+											<xs:annotation>
+												<xs:documentation>The count of this item.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:all>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Material11" type="inventoryItem" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The bottom-left item of the blueprint.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Material12" type="inventoryItem" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The bottom-middle item of the blueprint.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Material13" type="inventoryItem" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The bottom-right item of the blueprint.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Material21" type="inventoryItem" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The middle-left item of the blueprint.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Material22" type="inventoryItem" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The center item of the blueprint.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Material23" type="inventoryItem" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The middle-right item of the blueprint.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Material31" type="inventoryItem" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The top-left item of the blueprint.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Material32" type="inventoryItem" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The top-middle item of the blueprint.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Material33" type="inventoryItem" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The top-right item of the blueprint.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ArrayOfModItemCombatDataXML">
+		<xs:annotation>
+			<xs:documentation>Contains one or more ModItemCombatDataXML, which define items' stat bonuses. The stat bonuses are applied when the item is held or worn. 100 points in a stat is equivelant to 1 level.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ModItemCombatDataXML" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Defines items' stat bonuses. The stat bonuses are applied when the item is held or worn. 100 points in a stat is equivelant to 1 level.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="CombatID" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The ID of this combat type. This is used in ItemData.xml to determine the stat bonuses of the item when held or equipped.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Health" type="xs:short" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The Health bonus of this combat type. Every 100 points (1 level) increases the total health of the player or NPC by 3, until total level 100, at which point it only increases by 1.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Attack" type="xs:short" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The Attack bonus of this combat type. Attack increases how often the player or NPC can land hits with melee weapons or unarmed strike. Low Attack often results in dealing 0 damage (dark blue damage numbers) against targets with armor when using melee weapons or unarmed swing.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Strength" type="xs:int" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>TheStrength bonus of this combat type. Strength increases damage dealt to targets.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Defence" type="xs:int" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The Defence bonus of this combat type. Increases the player or NPC's chance of taking 0 damage from attacks. Increasing defence is effectively the same as decreasing the target's Attack or Ranged level.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Ranged" type="xs:int" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The Ranged bonus of this combat type. Ranged increases how often the player or NPC can land hits with ranged weapons. Low Ranged often results in dealing 0 damage (dark blue damage numbers) against targets with armor when using ranged weapons.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Looting" type="xs:int" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The Looting bonus of this combat type. Looting increases the chance to get rare items as dropped from NPCs.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ArrayOfModItemDataXML">
+		<xs:annotation>
+			<xs:documentation>Contains one or more ModItemDataXML, which define items' data and properties. This is required to create custom items.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ModItemDataXML" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Defines items' data and properties. This is required to create custom items.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="ItemID" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The ID of this item.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Name" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The display name of this item.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Desc" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The description of this item, shown when the item is examined.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="IsValid" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>If false, this item cannot be spawned or obtained.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="IsEnabled" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>If false, this item is disabled by default. It can still be enabled manually from the options menu.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="LockedDD" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>If true, this item is locked in Dig Deep mode. To unlock it, a player must find its blueprint or any enemy must drop it.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="LockedSU" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>If true, this item is locked in Survival mode.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="LockedCR" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>If true, this item is locked in Creative mode.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="MinCSPrice" type="xs:int" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The sell price of this item. The item can be purchased for 120% of this price.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="StackSize" type="xs:int" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The max stack size of this item. Always 1 if the item has durability.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Durability" type="xs:unsignedShort" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The maximum durability of this item. If this is specified, StackSize will always be 1.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="StrikeDamage" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The amount of damage this item deals when used as a weapon.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="StrikeReach" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The range, in blocks, this item can reach when used as a weapon.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="HealPower" type="xs:short" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>If specified, the amount of health this item restores when used. Note that this causes the item to be removed when used.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="BurnTime" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The time, in seconds, this item burns when used as fuel in a furnace.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="SmeltTime" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The time, in seconds, this item takes to smelt when crafted in a furnace.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="ParticleLight" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Makes this item visually "glow" when held, but does not emit light. Min: 0, Max: 15</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedByte">
+										<xs:minInclusive value="0" />
+										<xs:maxInclusive value="15" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="CanDropIfLocked" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>If true, this item can be dropped by enemies even when it's locked.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="SelectFlag" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Controls if this block can be used in fill creative tools and multi-texture blocks. Most blocks use Fill</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:list>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="MultiTexture" />
+												<xs:enumeration value="Fill" />
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:list>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="DropChance" type="xs:int" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Controls how often this item randomly drops from enemies. The drop rate is equal to 1 / value if this item is selected to drop. If this is not specified, the drop chance is based on the item's MinCSPrice and the player's looting level.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Plural" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>This item's plural form.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="None" />
+										<xs:enumeration value="S" />
+										<xs:enumeration value="ES" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ArrayOfModItemModelDataXML">
+		<xs:annotation>
+			<xs:documentation>Contains one or more ModItemModelDataXML, which define items' appearance when held. Custom models are not currently supported.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ModItemModelDataXML" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Defines items' appearance when held. Custom models are not currently supported.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="ItemType" type="itemModel" />
+							<xs:element name="Scale" type="xs:float" minOccurs="0" />
+							<xs:element name="HandOffset" type="vector3" minOccurs="0" />
+							<xs:element name="HandYPR" type="vector3" minOccurs="0" />
+							<xs:element name="HudScale" type="xs:float" minOccurs="0" />
+							<xs:element name="HudOffset" type="vector3" minOccurs="0" />
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ArrayOfModItemSoundDataXML">
+		<xs:annotation>
+			<xs:documentation>Contains one or more ModItemSoundDataXML, which define items' sounds.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ModItemSoundDataXML" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Defines items' sounds.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="ItemID" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The ID of this item.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Group" type="soundGroup" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The sound group used when this item makes a sound.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Sounds" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Allows you to set specific sounds for this item, outside of the predefined sounds from Group. The values here can be any sound from the game.</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:all>
+										<xs:element name="Step" type="stringArray" minOccurs="0" />
+										<xs:element name="Mine" type="stringArray" minOccurs="0" />
+										<xs:element name="Dig" type="stringArray" minOccurs="0" />
+										<xs:element name="Chop" type="stringArray" minOccurs="0" />
+										<xs:element name="Use" type="stringArray" minOccurs="0" />
+										<xs:element name="UseFail" type="stringArray" minOccurs="0" />
+										<xs:element name="Hit" type="stringArray" minOccurs="0" />
+									</xs:all>
+								</xs:complexType>
+							</xs:element>
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ArrayOfModItemSwingDataXML">
+		<xs:annotation>
+			<xs:documentation>Contains one or more ModItemSwingDataXML, which define items' visual swing. Most of these values have no effect on the functionality of the item. Custom swing types are not currently supported.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ModItemSwingDataXML" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Defines items' visual swing. Most of these values have no effect on the functionality of the item. Custom swing types are not currently supported.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="SwingType" type="itemSwingType">
+								<xs:annotation>
+									<xs:documentation>The ID of this swing type.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="IsSwingable" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>If false, this item cannot swing. This option affects item functionality.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="SwingTime" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Overrides the total swing time, in seconds, of this item. Usually left at 0 (no override). This option affects item functionality.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="RestPosition" type="vector3" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The position of this item when not swinging.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="RestRotation" type="vector3" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The rotation of this item when not swinging.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="ExtendedPosition" type="vector3" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The position of this item when fully extended in third-person.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="ExtendedPositionFPV" type="vector3" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The position of this item when fully extended in first-person.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="ExtendedRotation" type="vector3" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The rotation of this item when fully extended in third-person.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="ExtendedRotationFPV" type="vector3" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The rotation of this item when fully extended in first-person.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="CircularZ" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The circular X movement of this item during its swing. The item reaches the peak of the circular motion when half extended or half retracted.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="CircularY" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The circular Y movement of this item during its swing in third-person. The item reaches the peak of the circular motion when half extended or half retracted.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="CircularYFPV" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The circular X movement of this item during its swing in first-person. The item reaches the peak of the circular motion when half extended or half retracted.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ArrayOfModItemSwingTimeDataXML">
+		<xs:annotation>
+			<xs:documentation>Contains one or more ModItemSwingTimeDataXML, which define items' swing time.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ModItemSwingTimeDataXML" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Defines items' visual swing. Most of these values have no effect on the functionality of the item.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="ItemID" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The ID of this item.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Time" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The total swing time of this item, in seconds, including other time values. If RetractTime is 0.2 and the item should take 0.3 seconds to swing, this should still be 0.3.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Pause" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>How long, in seconds, this item should be in the "paused" or rest position after RestractTime has ended.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="ExtendedPause" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>How long, in seconds, this item should stay fully extended. For shields, this is when the player is blocking.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="RetractTime" type="xs:float" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>How long, in seconds, this item should take to retract after ExtendedPause has ended.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="RetractSmooth" type="xs:boolean" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Unknown</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ArrayOfModItemTypeClassDataXML">
+		<xs:annotation>
+			<xs:documentation>Contains one or more ModItemTypeClassDataXML, which defines item classes. Item classes are what items use to determine what they can mine.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ModItemTypeClassDataXML" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Defines item classes. Item classes are what items use to determine what they can mine.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="ClassID" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The ID of this item class.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Power" type="xs:unsignedShort" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The power of this item when breaking blocks. Essentially like "damage" against blocks.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="MaxResistance" type="xs:unsignedShort" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The maximum resistance a block can have before this item class cannot break it. Essentially like "health" for blocks.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ArrayOfModItemTypeDataXML">
+		<xs:annotation>
+			<xs:documentation>Contains one or more ModItemTypeDataXML, which defines items' types, such as CombatStats. inventory tab, etc.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ModItemTypeDataXML" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Defines items' types, such as CombatStats, inventory tab, etc.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="ItemID" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The ID of this item.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Use" type="useType" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The way this item is used. Changing this to block does not make an item a block. As of now, custom blocks cannot be added.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Type" type="itemType" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The type of this item.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="SubType" type="itemSubType" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The subtype of this item. Using Bow allows the item to shoot arrows, and using Arrow allows it to be used as an arrow. WARNING: Attempting to switch between custom arrows by swinging them currently crashes the game.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="ClassID" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The Class ID of this item, as defined in ItemTypeClassData.xml</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Inv" type="inventoryTab" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The inventory tab of this item.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="CombatID" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The Combat ID of this item, as defined in ItemCombatData.xml</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Model" type="itemModel" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The model of this item. Custom models are not currently supported.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Swing" type="itemSwingType" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The swing type of this item. Custom swing types are not currently supported.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Equip" type="equipIndex" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The slot this item is equipped.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ArrayOfItemXML">
+		<xs:annotation>
+			<xs:documentation>Defines an array of item IDs. When used for textures, the order of items in this list should match the order of items in the texture atlas, moving left -> right, top -> bottom.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ItemXML" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="ItemID" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>The item ID of this item.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:simpleType name="soundGroup">
+		<xs:list>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="None" />
+					<xs:enumeration value="Base" />
+					<xs:enumeration value="BodyHit" />
+					<xs:enumeration value="EnvCaveIn" />
+					<xs:enumeration value="EnvExplosion" />
+					<xs:enumeration value="EnvNightfall" />
+					<xs:enumeration value="GenPickup" />
+					<xs:enumeration value="GuiAccept" />
+					<xs:enumeration value="GuiCancel" />
+					<xs:enumeration value="GuiInvalid" />
+					<xs:enumeration value="GuiMoveCursor" />
+					<xs:enumeration value="GuiSelect" />
+					<xs:enumeration value="GuiTransfer" />
+					<xs:enumeration value="GuiGamerJoined" />
+					<xs:enumeration value="GuiTxtMsgIn" />
+					<xs:enumeration value="ItemActivate" />
+					<xs:enumeration value="ItemArmor" />
+					<xs:enumeration value="ItemBlock" />
+					<xs:enumeration value="ItemBow" />
+					<xs:enumeration value="ItemCooked" />
+					<xs:enumeration value="ItemCrop" />
+					<xs:enumeration value="ItemDiamantiumTool" />
+					<xs:enumeration value="ItemDiamondTool" />
+					<xs:enumeration value="ItemWoodDoor" />
+					<xs:enumeration value="ItemMetalDoor" />
+					<xs:enumeration value="ItemEarth" />
+					<xs:enumeration value="ItemFire" />
+					<xs:enumeration value="ItemFlora" />
+					<xs:enumeration value="ItemGem" />
+					<xs:enumeration value="ItemGlass" />
+					<xs:enumeration value="ItemGrass" />
+					<xs:enumeration value="ItemGreenstoneTool" />
+					<xs:enumeration value="ItemIronTool" />
+					<xs:enumeration value="ItemJewelry" />
+					<xs:enumeration value="ItemKey" />
+					<xs:enumeration value="ItemLava" />
+					<xs:enumeration value="ItemLeather" />
+					<xs:enumeration value="ItemMetal" />
+					<xs:enumeration value="ItemOre" />
+					<xs:enumeration value="ItemPorous" />
+					<xs:enumeration value="ItemPortcullis" />
+					<xs:enumeration value="ItemRareTool" />
+					<xs:enumeration value="ItemRaw" />
+					<xs:enumeration value="ItemRock" />
+					<xs:enumeration value="ItemRope" />
+					<xs:enumeration value="ItemRubyTool" />
+					<xs:enumeration value="ItemSand" />
+					<xs:enumeration value="ItemShield" />
+					<xs:enumeration value="ItemSkill" />
+					<xs:enumeration value="ItemSnow" />
+					<xs:enumeration value="ItemSteelTool" />
+					<xs:enumeration value="ItemStone" />
+					<xs:enumeration value="ItemTile" />
+					<xs:enumeration value="ItemTitaniumTool" />
+					<xs:enumeration value="ItemTree" />
+					<xs:enumeration value="ItemWater" />
+					<xs:enumeration value="ItemWood" />
+					<xs:enumeration value="ItemWoodTool" />
+					<xs:enumeration value="ItemWool" />
+					<xs:enumeration value="ItemGun" />
+					<xs:enumeration value="ItemGunSMG" />
+					<xs:enumeration value="ItemGunLaser" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:list>
+	</xs:simpleType>
+	<xs:simpleType name="useType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="None" />
+			<xs:enumeration value="Block" />
+			<xs:enumeration value="Item" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="itemType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="None" />
+			<xs:enumeration value="Block" />
+			<xs:enumeration value="Item" />
+			<xs:enumeration value="Tool" />
+			<xs:enumeration value="Weapon" />
+			<xs:enumeration value="Armor" />
+			<xs:enumeration value="Power" />
+			<xs:enumeration value="Food" />
+			<xs:enumeration value="Decor" />
+			<xs:enumeration value="Jewelry" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="itemSubType">
+		<xs:list>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="None" />
+					<xs:enumeration value="Bow" />
+					<xs:enumeration value="Arrow" />
+					<xs:enumeration value="Shield" />
+					<xs:enumeration value="Edible" />
+					<xs:enumeration value="TillTool" />
+					<xs:enumeration value="HarvestTool" />
+					<xs:enumeration value="Grenade" />
+					<xs:enumeration value="GrenadeLauncher" />
+					<xs:enumeration value="Key" />
+					<xs:enumeration value="Door" />
+					<xs:enumeration value="RangedWeapon" />
+					<xs:enumeration value="BlockCanBeOpened" />
+					<xs:enumeration value="Leaves" />
+					<xs:enumeration value="Gun" />
+					<xs:enumeration value="RapidSwing" />
+					<xs:enumeration value="Potion" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:list>
+	</xs:simpleType>
+	<xs:simpleType name="itemSwingType">
+		<xs:list>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="None" />
+					<xs:enumeration value="Block" />
+					<xs:enumeration value="Item" />
+					<xs:enumeration value="IconBlock" />
+					<xs:enumeration value="Ramp" />
+					<xs:enumeration value="Weapon" />
+					<xs:enumeration value="WeaponTRBL" />
+					<xs:enumeration value="Spear" />
+					<xs:enumeration value="Bow" />
+					<xs:enumeration value="Shield" />
+					<xs:enumeration value="Eating" />
+					<xs:enumeration value="Arrow" />
+					<xs:enumeration value="SwitchArrow" />
+					<xs:enumeration value="GunHand" />
+					<xs:enumeration value="GunRifle" />
+					<xs:enumeration value="Key" />
+					<xs:enumeration value="Staff" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:list>
+	</xs:simpleType>
+	<xs:simpleType name="inventoryTab">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="None" />
+			<xs:enumeration value="Natural" />
+			<xs:enumeration value="Stone" />
+			<xs:enumeration value="Ore" />
+			<xs:enumeration value="Flora" />
+			<xs:enumeration value="Utility" />
+			<xs:enumeration value="Building" />
+			<xs:enumeration value="Color" />
+			<xs:enumeration value="Tool" />
+			<xs:enumeration value="Weapon" />
+			<xs:enumeration value="Armor" />
+			<xs:enumeration value="Food" />
+			<xs:enumeration value="Jewelry" />
+			<xs:enumeration value="Key" />
+			<xs:enumeration value="Other" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="itemModel">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="None" />
+			<xs:enumeration value="Block" />
+			<xs:enumeration value="IconBlock" />
+			<xs:enumeration value="BigIconBlock" />
+			<xs:enumeration value="Item" />
+			<xs:enumeration value="MediumItem" />
+			<xs:enumeration value="MediumItemFront" />
+			<xs:enumeration value="ItemTLBR" />
+			<xs:enumeration value="Tool" />
+			<xs:enumeration value="Hatchet" />
+			<xs:enumeration value="Weapon" />
+			<xs:enumeration value="WeaponTLBR" />
+			<xs:enumeration value="WeaponTRBL" />
+			<xs:enumeration value="BigWeapon" />
+			<xs:enumeration value="SteelScimitar" />
+			<xs:enumeration value="SteelClaymore" />
+			<xs:enumeration value="Bow" />
+			<xs:enumeration value="Arrow" />
+			<xs:enumeration value="Armor" />
+			<xs:enumeration value="Shield" />
+			<xs:enumeration value="Key" />
+			<xs:enumeration value="Jewelry" />
+			<xs:enumeration value="Door" />
+			<xs:enumeration value="Torch" />
+			<xs:enumeration value="GunHand" />
+			<xs:enumeration value="GunRifle" />
+			<xs:enumeration value="Clipboard" />
+			<xs:enumeration value="Staff" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="equipIndex">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="None" />
+			<xs:enumeration value="Head" />
+			<xs:enumeration value="Neck" />
+			<xs:enumeration value="Body" />
+			<xs:enumeration value="Legs" />
+			<xs:enumeration value="Feet" />
+			<xs:enumeration value="LeftSide" />
+			<xs:enumeration value="RightSide" />
+			<xs:enumeration value="LeftHand" />
+			<xs:enumeration value="RightHand" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="inventoryItem">
+		<xs:all>
+			<xs:element name="ItemID" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>The ID of this item.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Durability" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>The durability of this item. Set to 0 ignore durability.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Count" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>The count of this item.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="vector2">
+		<xs:all>
+			<xs:element name="X" type="xs:float" />
+			<xs:element name="Y" type="xs:float" />
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="vector3">
+		<xs:all>
+			<xs:element name="X" type="xs:float" />
+			<xs:element name="Y" type="xs:float" />
+			<xs:element name="Z" type="xs:float" />
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="vector4">
+		<xs:all>
+			<xs:element name="X" type="xs:float" />
+			<xs:element name="Y" type="xs:float" />
+			<xs:element name="Z" type="xs:float" />
+			<xs:element name="W" type="xs:float" />
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="stringArray">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" name="string" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
